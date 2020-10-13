@@ -1,2 +1,3 @@
-# Lab6.Crawler
-Word Crawler
+# IOT20-Lab6
+Website Crawler 
+Contributors Hamid & David
