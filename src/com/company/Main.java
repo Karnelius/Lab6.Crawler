@@ -20,31 +20,55 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
+        int iturn = 0;
+
         System.out.println("Please enter an searchWord");
-        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Mike_Pence").get();
+        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Saab_Sonett").get();
 
         String title = doc.text();
         String[] title2 = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
+        String [] title3 = title2;
         String searchword = scan.nextLine();
         List<String> indexering;
 
         indexering = Arrays.asList(title2);
         for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
             String x = indexering.get(i); // Alla index skrivs ut
-            System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
+            //System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
 
             // Vill skapa en lista med alla "matches" från indexering kontra searchword
             // Räkna antal "matches" för searchword från indexering
             // Skriva ut antal "matches" i en egen funktion.
+        }
 
-            if (indexering.contains(searchword)) {
-                System.out.println("Rätt");
-            }else{
-                System.out.println("Fel");
+        if (indexering.contains(searchword)) {
+            System.out.println("Funkar i steg 1");
+            {
+                int count = 0;
+                for (int i = 0; i < title3.length - 1; i++) {           
+                    if (title3[i].equals(searchword)) {
+                        count++;
+                    }
+                }
+                System.out.println("Antal förekommande: " + count);
             }
         }
     }
 }
+
+
+       /* if (scan.next().equals(searchword)) {
+            ++iturn;
+
+            System.out.println("Rätt");
+        } else {
+            System.out.println("Fel");
+        }
+    }
+}
+
+
+
 
         /*
         Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").get();
