@@ -1,42 +1,93 @@
 package com.company;
 
-import javax.sound.midi.Soundbank;
-import javax.swing.*;
 import java.io.*;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.net.*;
-import java.util.StringTokenizer;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.*;
-import org.jsoup.*;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
 public class Main {
 
 
-    public static void main(String[] args) throws IOException {
+   public static void main(String[] args) throws IOException {
+
+
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("Please enter an searchWord");
+
         Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Donald_Trump").get();
         String title = doc.text(); // INDEXERAgöra till en array av ord. -whitespaces.
-        String searchword = scan.nextLine();
-        int summa = 0;
-        while(true)
-        if (title.equals(searchword)) {
-            System.out.println("Rätt");
-        } else {
-            System.out.println("fel");
-            break;
+        System.out.println("Please enter an searchWord");
+        int amount = 0, i = 0;
+
+
+        while(scan.hasNextLine()) {
+            String searchword = scan.nextLine();
+
+            if (title.equals(searchword)) {
+                amount++;
+            }
+            System.out.println(amount);
         }
     }
 }
+
+
+
+/*public class WebSpider {
+    private final Set<URL> links;
+    private final long startTime;
+
+    private WebSpider(final URL startURL) {
+        this.links = new HashSet<>();
+        this.startTime = System.currentTimeMillis();
+        crawl(initURLS(startURL));
+    }
+
+    private void crawl(Set<URL> initURLS) {
+        initURLS.removeAll(this.links);
+
+        if(!initURLS.isEmpty()) {
+            final Set<URL> newURLS = new HashSet<>();
+            try {
+                this.links.addAll(urls);
+                for(final URL url : urls) {
+                    System.out.println("Time = "
+                            + System.currentTimeMillis() - this.startTime))+ " connected to : " + url);
+                    final Document document = jsoup.connect(url.toString()).get();
+                    final Elements linksOnPage = document.select("a[href]");
+                    for(final Element element : linksOnPage) {
+                        final String urlText = element.attr("abs:href");
+                        final URL discoveredURL = new URL(urlText);
+                        newURLS.add(discoveredURL);
+                    }
+                }
+            }catch(final Exception | Error ignored) {
+
+            }
+            crawl(newURLS);
+        }
+    }
+
+    private Set<URL> initURLS(final URL startURL) {
+        return Collections.singleton(startURL);
+
+        
+    }
+
+    public static void main(String[] args) throws MalformedURLException {
+
+    final Webspider spider = Webspider(new URL("http://www.gutenberg.org/"));
+}
+
+}
+*/
+
+
 
 
 
