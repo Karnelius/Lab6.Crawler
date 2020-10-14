@@ -21,25 +21,29 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter an searchWord");
-        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Donald_Trump").get();
+        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Mike_Pence").get();
 
         String title = doc.text();
-        String title2[] = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
+        String[] title2 = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
         String searchword = scan.nextLine();
-        //System.out.println(title);
         List<String> indexering;
 
         indexering = Arrays.asList(title2);
         for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
             String x = indexering.get(i); // Alla index skrivs ut
-            System.out.println(x);
+            System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
 
-            if(indexering.equals(searchword))
+            // Vill skapa en lista med alla "matches" från indexering kontra searchword
+            // Räkna antal "matches" för searchword från indexering
+            // Skriva ut antal "matches" i en egen funktion.
 
-            System.out.println(x);
+            if (indexering.contains(searchword)) {
+                System.out.println("Rätt");
+            }else{
+                System.out.println("Fel");
+            }
         }
     }
-
 }
 
         /*
