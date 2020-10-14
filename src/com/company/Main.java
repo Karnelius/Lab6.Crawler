@@ -1,99 +1,71 @@
 package com.company;
 
+import javax.sound.midi.Soundbank;
+import javax.swing.*;
 import java.io.*;
+import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.net.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
+import org.jsoup.nodes.*;
+import org.jsoup.*;
 import org.jsoup.select.Elements;
 
 
 public class Main {
 
-
-   public static void main(String[] args) throws IOException {
-
-
+    public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
+        int iturn = 0;
 
-        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Donald_Trump").get();
-        String title = doc.text(); // INDEXERAgöra till en array av ord. -whitespaces.
         System.out.println("Please enter an searchWord");
-        int amount = 0, i = 0;
+        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Saab_Sonett").get();
 
+        String title = doc.text();
+        String[] title2 = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
+        String [] title3 = title2;
+        String searchword = scan.nextLine();
+        List<String> indexering;
 
-        while(scan.hasNextLine()) {
-            String searchword = scan.nextLine();
+        indexering = Arrays.asList(title2);
+        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
+            String x = indexering.get(i); // Alla index skrivs ut
+            //System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
 
-            if (title.equals(searchword)) {
-                amount++;
-            }
-            System.out.println(amount);
+            // Vill skapa en lista med alla "matches" från indexering kontra searchword
+            // Räkna antal "matches" för searchword från indexering
+            // Skriva ut antal "matches" i en egen funktion.
         }
-    }
-}
 
-
-
-/*public class WebSpider {
-    private final Set<URL> links;
-    private final long startTime;
-
-    private WebSpider(final URL startURL) {
-        this.links = new HashSet<>();
-        this.startTime = System.currentTimeMillis();
-        crawl(initURLS(startURL));
-    }
-
-    private void crawl(Set<URL> initURLS) {
-        initURLS.removeAll(this.links);
-
-        if(!initURLS.isEmpty()) {
-            final Set<URL> newURLS = new HashSet<>();
-            try {
-                this.links.addAll(urls);
-                for(final URL url : urls) {
-                    System.out.println("Time = "
-                            + System.currentTimeMillis() - this.startTime))+ " connected to : " + url);
-                    final Document document = jsoup.connect(url.toString()).get();
-                    final Elements linksOnPage = document.select("a[href]");
-                    for(final Element element : linksOnPage) {
-                        final String urlText = element.attr("abs:href");
-                        final URL discoveredURL = new URL(urlText);
-                        newURLS.add(discoveredURL);
+        if (indexering.contains(searchword)) {
+            System.out.println("Funkar i steg 1");
+            {
+                int count = 0;
+                for (int i = 0; i < title3.length - 1; i++) {           
+                    if (title3[i].equals(searchword)) {
+                        count++;
                     }
                 }
-            }catch(final Exception | Error ignored) {
-
+                System.out.println("Antal förekommande: " + count);
             }
-            crawl(newURLS);
         }
     }
+}
 
-    private Set<URL> initURLS(final URL startURL) {
-        return Collections.singleton(startURL);
 
-        
+       /* if (scan.next().equals(searchword)) {
+            ++iturn;
+
+            System.out.println("Rätt");
+        } else {
+            System.out.println("Fel");
+        }
     }
-
-    public static void main(String[] args) throws MalformedURLException {
-
-    final Webspider spider = Webspider(new URL("http://www.gutenberg.org/"));
 }
-
-}
-*/
-
-
-
-
-
-
-
-
 
 
 
@@ -127,13 +99,6 @@ public class Main {
 }
 
 
-
-
-
-
-
-
-
         /*
         Document doc = Jsoup.connect("https://www.flashback.org/").get();
         Elements body = doc.select("tbody.collapseobj_forumbit");
@@ -145,8 +110,6 @@ public class Main {
         }
     }}
 
-
-        /*
 
 
 
