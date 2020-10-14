@@ -3,12 +3,10 @@ package com.company;
 import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.io.*;
+import java.nio.file.Paths;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.net.*;
-import java.util.StringTokenizer;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,33 +17,30 @@ import org.jsoup.select.Elements;
 
 public class Main {
 
-
     public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter an searchWord");
         Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Donald_Trump").get();
-        String title = doc.text(); // INDEXERAgöra till en array av ord. -whitespaces.
+
+        String title = doc.text();
+        String title2[] = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
         String searchword = scan.nextLine();
-        int summa = 0;
-        while(true)
-        if (title.equals(searchword)) {
-            System.out.println("Rätt");
-        } else {
-            System.out.println("fel");
-            break;
+        //System.out.println(title);
+        List<String> indexering;
+
+        indexering = Arrays.asList(title2);
+        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
+            String x = indexering.get(i); // Alla index skrivs ut
+            System.out.println(x);
+
+            if(indexering.equals(searchword))
+
+            System.out.println(x);
         }
     }
+
 }
-
-
-
-
-
-
-
-
-
 
         /*
         Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").get();
@@ -76,13 +71,6 @@ public class Main {
 }
 
 
-
-
-
-
-
-
-
         /*
         Document doc = Jsoup.connect("https://www.flashback.org/").get();
         Elements body = doc.select("tbody.collapseobj_forumbit");
@@ -94,8 +82,6 @@ public class Main {
         }
     }}
 
-
-        /*
 
 
 
