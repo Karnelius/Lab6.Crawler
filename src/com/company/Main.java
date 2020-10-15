@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.net.*;
+import java.util.stream.IntStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,21 +21,22 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
-        int iturn = 0;
 
-        System.out.println("Please enter an searchWord");
-        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Saab_Sonett").get();
+        //JOptionPane;
+        System.out.println("Please enter an searchword");
 
-        String title = doc.text();
-        String[] title2 = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
-        String [] title3 = title2;
-        String searchword = scan.nextLine();
+
+        Document doc = Jsoup.connect("https://www.expressen.se/").get();
+
+        String title = doc.text().toUpperCase();
+        String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
+        String searchword = scan.nextLine().toUpperCase();
         List<String> indexering;
 
         indexering = Arrays.asList(title2);
         for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
             String x = indexering.get(i); // Alla index skrivs ut
-            //System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
+            System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa. + göra all till små.
 
             // Vill skapa en lista med alla "matches" från indexering kontra searchword
             // Räkna antal "matches" för searchword från indexering
@@ -44,16 +46,13 @@ public class Main {
         if (indexering.contains(searchword)) {
             System.out.println("Funkar i steg 1");
             {
-                int count = 0;
-                for (int i = 0; i < title3.length - 1; i++) {           
-                    if (title3[i].equals(searchword)) {
-                        count++;
-                    }
-                }
+                int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
                 System.out.println("Antal förekommande: " + count);
             }
         }
     }
+
+
 }
 
 
