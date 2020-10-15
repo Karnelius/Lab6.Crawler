@@ -5,54 +5,62 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        //Todo lägga till en bild etc i panelen.
 
         //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
-        String inputforWebsite = JOptionPane.showInputDialog(null,"Enter your website", "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
+        String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webbrowser", "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
 
-        String searchword = JOptionPane.showInputDialog(null,"Please enter your searchword: ").toUpperCase();
+        String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ").toUpperCase();
 
-        Document doc = Jsoup.connect(inputforWebsite).get();
+        //ToDo fånga exeption antingen med catch try - låta personen knappa in en sida på nytt eller bara throw exception. Hemsida.
+
+        // ToDo spotta ut (Inget sökord hittat) vid 0 sökord.
+
+        Element doc = Jsoup.connect(inputforWebsite).get();
 
         String title = doc.text().toUpperCase();
-        String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
+        String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+"); // Todo ta bort " ... Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
         List<String> indexering;
         indexering = Arrays.asList(title2);
 
+        //Todo remove children.
+
         for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-            if (inputforWebsite == null){
+
+
+            //Todo Kolla upp empty for loop body...
+
+           /* if (inputforWebsite == null){
                 JOptionPane.showMessageDialog(null,"Please enter a correct website");
             }else{
                 JOptionPane.showMessageDialog(null, "errrooorrr");
             }
-
-            //String x = indexering.get(i); // Alla index skrivs ut
-            //System.out.println(x);      //
-
+*/
+            String x = indexering.get(i); // Alla index skrivs ut
+            System.out.println(x);
         }
 
         if (indexering.contains(searchword)) {
             {
                 int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
-                JOptionPane.showMessageDialog(null, "Your searchword was found: " + count +" time/s on the website.");
+                JOptionPane.showMessageDialog(null, "Your searchword was found: " + count + " time/s on the website."); //ToDo OVERKILL? Lägg till det ord som förekommer mest inom parantes.
 
                 //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword - Cancel for exiting the program).
             }
         }
     }
+    //Todo - scanner close?
 }
-
-
-
-
-
 
         /*
         Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").get();
@@ -72,8 +80,6 @@ public class Main {
     }
 }
 
-
-        /*
         Document doc = Jsoup.connect("https://www.wikipedia.org").get();
         Elements titles = doc.getElementsByClass("other-project");
         for (Element title : titles) {
@@ -81,37 +87,6 @@ public class Main {
         }
     }
 }
-
-
-        /*
-        Document doc = Jsoup.connect("https://www.flashback.org/").get();
-        Elements body = doc.select("tbody.collapseobj_forumbit");
-        Elements select = body.select("tr");
-        for (int i=0, selectSize = select.size(); i< selectSize; i++){
-            Element e = select.get(i);
-            String title = e.select("td_forum").text().trim();
-            System.out.println(title);
-        }
-    }}
-
-
-
-
-    /*    String url = "https://www.sydsvenskan.se/";
-        Document page = Jsoup.connect(url).userAgent("").get();
-            String itemSelector = "item-card-container";
-        Elements authorElements = page.select(itemSelector);
-        ArrayList<String> itemTitles = new ArrayList<>();
-
-        for (Element e : authorElements) itemTitles.add(e.text());
-        for (String s : itemTitles) System.out.println(s);
-    }*/
-
-
-       /* String searchWord;
-        searchWord = JOptionPane.showInputDialog(null, "Please Enter Your SearchWord");
-        JOptionPane.showMessageDialog(null, "Your searchword is: " + searchWord);
-
 
         System.out.println(searchWord);
 
@@ -152,7 +127,7 @@ public class Main {
 
        // File file = new File("testData/Ost.txt");
 
-       /* try{
+       try{
             Scanner input = new Scanner(file);
             while(input.hasNext()){
                 String line = input.nextLine();
@@ -164,29 +139,5 @@ public class Main {
         catch (FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"File Not Found");
         }
-
-
     }
-
-    // Metod för att läsa igenom en hemsida / fil
-    // Metod för att räkna ut antal ord / eller most common ord (flest ord) exkl if / else / and / so / blablla.
-
-
- */
-
-
-
-/*
-Private static void startMetod() {
-        startMetod();
-
-        Scanner scan = new Scanner(new File(inputFile));
-        searchWord = JOptionPane.showInputDialog(null, "Please enter your searchword: ");
-        JOptionPane.showMessageDialog(null, "Your searchword is: " + searchWord);
-
-        String searchWord = scan.nextLine();
-
-        new crawler("testData/Ost.txt");
-    }
-
- */
+         */
