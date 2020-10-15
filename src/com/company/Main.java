@@ -14,7 +14,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        String inputforWebsite = JOptionPane.showInputDialog(null,"Copy the URL for the website you want to scan");
+        //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
+        String inputforWebsite = JOptionPane.showInputDialog(null,"Enter your website", "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
 
         String searchword = JOptionPane.showInputDialog(null,"Please enter your searchword: ").toUpperCase();
 
@@ -26,7 +27,7 @@ public class Main {
         indexering = Arrays.asList(title2);
 
         for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-            if (searchword == null){
+            if (inputforWebsite == null){
                 JOptionPane.showMessageDialog(null,"Please enter a correct website");
             }else{
                 JOptionPane.showMessageDialog(null, "errrooorrr");
@@ -41,6 +42,8 @@ public class Main {
             {
                 int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
                 JOptionPane.showMessageDialog(null, "Your searchword was found: " + count +" time/s on the website.");
+
+                //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword - Cancel for exiting the program).
             }
         }
     }
