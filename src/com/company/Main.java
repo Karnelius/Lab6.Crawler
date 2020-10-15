@@ -1,70 +1,52 @@
 package com.company;
 
-import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.io.*;
-import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.net.*;
+import java.util.List;
 import java.util.stream.IntStream;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.*;
-import org.jsoup.*;
-import org.jsoup.select.Elements;
 
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Scanner scan = new Scanner(System.in);
 
-        //JOptionPane;
-        System.out.println("Please enter an searchword");
+        String inputforWebsite = JOptionPane.showInputDialog(null,"Copy the URL for the website you want to scan");
 
+        String searchword = JOptionPane.showInputDialog(null,"Please enter your searchword: ").toUpperCase();
 
-        Document doc = Jsoup.connect("https://www.expressen.se/").get();
+        Document doc = Jsoup.connect(inputforWebsite).get();
 
         String title = doc.text().toUpperCase();
         String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
-        String searchword = scan.nextLine().toUpperCase();
         List<String> indexering;
-
         indexering = Arrays.asList(title2);
-        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-            String x = indexering.get(i); // Alla index skrivs ut
-            System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa. + göra all till små.
 
-            // Vill skapa en lista med alla "matches" från indexering kontra searchword
-            // Räkna antal "matches" för searchword från indexering
-            // Skriva ut antal "matches" i en egen funktion.
+        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
+            if (searchword == null){
+                JOptionPane.showMessageDialog(null,"Please enter a correct website");
+            }else{
+                JOptionPane.showMessageDialog(null, "errrooorrr");
+            }
+
+            //String x = indexering.get(i); // Alla index skrivs ut
+            //System.out.println(x);      //
+
         }
 
         if (indexering.contains(searchword)) {
-            System.out.println("Funkar i steg 1");
             {
                 int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
-                System.out.println("Antal förekommande: " + count);
+                JOptionPane.showMessageDialog(null, "Your searchword was found: " + count +" time/s on the website.");
             }
         }
     }
-
-
 }
 
 
-       /* if (scan.next().equals(searchword)) {
-            ++iturn;
-
-            System.out.println("Rätt");
-        } else {
-            System.out.println("Fel");
-        }
-    }
-}
 
 
 
