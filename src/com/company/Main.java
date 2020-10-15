@@ -1,11 +1,12 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,50 +17,45 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         //Todo lägga till en bild etc i panelen.
+        try {
 
-        //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
-        String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webbrowser", "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
+            //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
+            String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webrowser", "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
 
-        String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ").toUpperCase();
+            //Todo vill bryta om den catchar.
 
-        //ToDo fånga exeption antingen med catch try - låta personen knappa in en sida på nytt eller bara throw exception. Hemsida.
-
-        // ToDo spotta ut (Inget sökord hittat) vid 0 sökord.
-
-        Element doc = Jsoup.connect(inputforWebsite).get();
-
-        String title = doc.text().toUpperCase();
-        String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+"); // Todo ta bort " ... Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
-        List<String> indexering;
-        indexering = Arrays.asList(title2);
-
-        //Todo remove children.
-
-        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
+            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "SiteCrawler 2000",JOptionPane.QUESTION_MESSAGE).toUpperCase();
 
 
-            //Todo Kolla upp empty for loop body...
+            // ToDo spotta ut (Inget sökord hittat) vid 0 sökord.
 
-           /* if (inputforWebsite == null){
-                JOptionPane.showMessageDialog(null,"Please enter a correct website");
-            }else{
-                JOptionPane.showMessageDialog(null, "errrooorrr");
+            Element doc = Jsoup.connect(inputforWebsite).get();
+            String title = doc.text().toUpperCase();
+            String[] title2 = title.split("([-,.:)(])|(?=[-,+.^:_]\",\"\")|\\s+");
+            List<String> indexering;
+            indexering = Arrays.asList(title2);
+            //Todo remove children. + pimpa upp hyrogryfiskan vid Regex.
+
+            for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
+
+                //Todo Kolla upp empty for loop body...
+
+                String x = indexering.get(i); // Alla index skrivs ut
+                System.out.println(x);
             }
-*/
-            String x = indexering.get(i); // Alla index skrivs ut
-            System.out.println(x);
-        }
 
-        if (indexering.contains(searchword)) {
-            {
-                int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
-                JOptionPane.showMessageDialog(null, "Your searchword was found: " + count + " time/s on the website."); //ToDo OVERKILL? Lägg till det ord som förekommer mest inom parantes.
+            if (indexering.contains(searchword)) {
+                {
+                    int count = (int) IntStream.range(0, title2.length).filter(i -> (title2[i].contains(searchword))).count();
+                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchword + "'" +  " was found: " + count + " time/s on the website.", "SiteCrawler 2000", JOptionPane.INFORMATION_MESSAGE); //ToDo OVERKILL? Lägg till det ord som förekommer mest inom parantes.
 
-                //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword - Cancel for exiting the program).
+                    //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword - Cancel for exiting the program).
+                }
             }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null,"Skriv in en rätt hemsida!","SiteCrawler2000",JOptionPane.ERROR_MESSAGE);
         }
     }
-    //Todo - scanner close?
 }
 
         /*
