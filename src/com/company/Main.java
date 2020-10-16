@@ -22,15 +22,10 @@ public class Main {
 
             //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
             String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webrowser",
-                    "Plain Text Website Scrapper 2000", JOptionPane.QUESTION_MESSAGE);
+                    "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE);
 
-            //Todo vill bryta om den catchar.
-
-            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "Plain Text Website Scrapper 2000",
+            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "Plain Text Website Scraper 2000",
                     JOptionPane.QUESTION_MESSAGE).toUpperCase();
-
-
-            // ToDo spotta ut (Inget sökord hittat) vid 0 sökord.
 
             Document doc = Jsoup.connect(inputforWebsite).get(); // trimma här.
             String title = doc.body().text().toUpperCase(); //Filtrera bort ord som börjar med < > (<HTML>).
@@ -42,25 +37,27 @@ public class Main {
 
                 //Todo Kolla upp empty for loop body...
 
-                String x = indexering.get(i); // Alla index skrivs ut
-                System.out.println(x);
+
             }
 
             if (indexering.contains(searchword)) {
                 {
                     int count = (int) IntStream.range(0, title2.length)
-                                      .filter(i -> (title2[i].contains(searchword))).count();
+                            .filter(i -> (title2[i].contains(searchword))).count();
 
                     JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchword + "'" + " was found: " + count + " time/s on the website.",
-                            "Plain Text Website Scrapper 2000", JOptionPane.INFORMATION_MESSAGE);
+                            "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
 
                     //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword
                     // - Cancel for exiting the program).
                 }
+            } else if (!indexering.contains(searchword)) {
+                JOptionPane.showMessageDialog(null, "No such words was found on the webiste", "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Skriv in en rätt hemsida!", "Plain Text Website Scrapper 2000", JOptionPane.ERROR_MESSAGE);
 
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Skriv in en rätt hemsida!", "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+            // catch ClassNotFoundException. //TODO ---->
         }
     }
 }
@@ -82,6 +79,9 @@ public class Main {
         }
     }
 }
+
+   String x = indexering.get(i); // Alla index skrivs ut
+                System.out.println(x);
 
         Document doc = Jsoup.connect("https://www.wikipedia.org").get();
         Elements titles = doc.getElementsByClass("other-project");
