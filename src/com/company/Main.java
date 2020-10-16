@@ -22,22 +22,21 @@ public class Main {
 
             //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
             String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webrowser",
-                    "SiteCrawler2000", JOptionPane.QUESTION_MESSAGE);
+                    "Plain Text Website Scrapper 2000", JOptionPane.QUESTION_MESSAGE);
 
             //Todo vill bryta om den catchar.
 
-            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "SiteCrawler 2000",
+            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "Plain Text Website Scrapper 2000",
                     JOptionPane.QUESTION_MESSAGE).toUpperCase();
 
 
             // ToDo spotta ut (Inget sökord hittat) vid 0 sökord.
 
-            Element doc = Jsoup.connect(inputforWebsite).get(); // trimma här.
-            String title = doc.text().toUpperCase(); //Filtrera bort ord som börjar med < > (<HTML>).
+            Document doc = Jsoup.connect(inputforWebsite).get(); // trimma här.
+            String title = doc.body().text().toUpperCase(); //Filtrera bort ord som börjar med < > (<HTML>).
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
             List<String> indexering;
             indexering = Arrays.asList(title2);
-            //Todo remove children. + pimpa upp hyrogryfiskan vid Regex.
 
             for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
 
@@ -53,15 +52,15 @@ public class Main {
                                       .filter(i -> (title2[i].contains(searchword))).count();
 
                     JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchword + "'" + " was found: " + count + " time/s on the website.",
-                            "SiteCrawler 2000", JOptionPane.INFORMATION_MESSAGE);
-                    //ToDo OVERKILL? Lägg till det ord som förekommer mest inom parantes.
+                            "Plain Text Website Scrapper 2000", JOptionPane.INFORMATION_MESSAGE);
 
                     //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword
                     // - Cancel for exiting the program).
                 }
             }
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Skriv in en rätt hemsida!", "SiteCrawler2000", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Skriv in en rätt hemsida!", "Plain Text Website Scrapper 2000", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 }
