@@ -1,13 +1,11 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,16 +17,13 @@ public class Main {
 
         //Todo lägga till en bild etc i panelen.
         try {
-
-            //String inputforWebsite = JOptionPane.showInputDialog(null, "Copy the URL for the website you want to scan");
             String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webrowser",
                     "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE);
-
             String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "Plain Text Website Scraper 2000",
                     JOptionPane.QUESTION_MESSAGE).toUpperCase();
 
-            Document doc = Jsoup.connect(inputforWebsite).get(); // trimma här.
-            String title = doc.body().text().toUpperCase(); //Filtrera bort ord som börjar med < > (<HTML>).
+            Document doc = Jsoup.connect(inputforWebsite).get();
+            String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
             List<String> indexering;
             indexering = Arrays.asList(title2);
@@ -36,8 +31,6 @@ public class Main {
             for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
 
                 //Todo Kolla upp empty for loop body...
-
-
             }
 
             if (indexering.contains(searchword)) {
