@@ -46,57 +46,31 @@ public class Main {
                 }
             }
             if (indexering.contains(searchWord)) {
-                int count = (int) IntStream.range(0, title2.length)
-                        .filter(i -> (title2[i].contains(searchWord))).count();
+                {
+                    int count = (int) IntStream.range(0, title2.length)
+                            .filter(i -> (title2[i].contains(searchWord))).count();
 
-                JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
-                        "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
+                            "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
 
-
-                JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
-                        "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
-
-                //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword
-                // - Cancel for exiting the program).
-
-            } else {
-                while (true) {
-
-                    if (!indexering.contains(searchWord)) {
-                        notFoundWordsArgument();
-                        JOptionPane.showInputDialog(null, "Please enter your searchword: ",
-                                "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE).toUpperCase();
-                        JOptionPane.showMessageDialog(null, "Try a new searchword",
-                                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
-
-
-                    } else break;
-                    {
-                    }
-                } //else if (!indexering.contains(searchWord)) {
-                // notFoundWordsArgument();
-                //JOptionPane.showMessageDialog(null, "Try a new searchword",
-                //     "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
-                // searchMethod(); // Vill inte tillbaka till starten.
+                }
+            } else if (!indexering.contains(searchWord)) {
+                notFoundWordsArgument();
+                JOptionPane.showMessageDialog(null, "Try a new searchword",
+                        "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+                searchMethod(); // Vill inte tillbaka till starten.
 
 
             }
-
-
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Enter a correct website!",
                     "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+
+            
+            // catch ClassNotFoundException. //TODO ---->
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 
