@@ -1,11 +1,9 @@
 package com.company;
 
 import javax.swing.*;
-import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -42,7 +40,6 @@ public class Main {
                 while (i < indexeringSize) {
                     i++;
                 }
-                //    for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++){}
             }
             if (searchWord.isBlank()) {
                 notFoundWordsArgument();
@@ -69,87 +66,3 @@ public class Main {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").get();
-        Elements body = doc.select("tbody.lister-list");
-        //System.out.println(body.select("tr"));
-        Elements select = body.select("tr");
-        for (int i = 0, selectSize = select.size(); i < selectSize; i++) {
-            Element e = select.get(i);
-            String title = e.select("td.posterColumn img").attr("alt");
-            System.out.println("Film:  " + title);
-            String year = e.select("td.titleColumn span.secondaryInfo").text();
-            System.out.println("Årtal: " + year.replaceAll("[^\\d]", " "));
-            String imdbBetyg = e.select("td.ratingColumn.imdbRating").text().trim();
-            System.out.println("Betyg: " + " " + imdbBetyg);
-            System.out.println("-------------------");
-        }
-    }
-}
-
-
-// TODO ---> FUNKAR PÅ WIKIPEDIA <---- TODO
-
-        System.out.println(searchWord);
-
-        URL dweb = new URL("https://www.wikipedia.com/");
-        URLConnection dw = dweb.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(hc.getInpuStream()));
-        System.out.println("Connecting to Wikipedia");
-        String inputLine;
-
-        PrintStream out = new PrintStream(new FileOutputStream("OutFile.txt"));
-        try {
-            while ((inputLine = in.readLine()) != null)
-                System.out.println(inputLine);
-            out.close();
-
-            System.out.println("Printing text to file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Scanner scan = new Scanner("testData/Ost.txt.txt");
-            String search = txtSearch.getText();
-            while (scan.hasNextLine()) {
-                searchWord = sc.nextToken();
-                if (searchWord == search) {
-
-                } else {
-                }
-            }
-            scan.close();
-        searchWin.dispose();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
