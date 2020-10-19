@@ -1,71 +1,106 @@
 package com.company;
 
-import javax.sound.midi.Soundbank;
 import javax.swing.*;
 import java.io.*;
-import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.net.*;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.*;
-import org.jsoup.*;
-import org.jsoup.select.Elements;
-
 
 public class Main {
 
+    public static String searchWord;
+    public static String website;
+    public static List<String> indexering;
+
+    private static void searchMethod() {
+        website = JOP.inputWebsite;
+        searchWord = JOP.inputSearch;
+    }
+
+    private static void notFoundWordsArgument() {
+        JOptionPane.showMessageDialog(null, "No such words was found on the website",
+                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+    }
+
+
     public static void main(String[] args) throws IOException {
+        JOP a = new JOP();
 
-        Scanner scan = new Scanner(System.in);
-        int iturn = 0;
+        try {
 
-        System.out.println("Please enter an searchWord");
-        Document doc = Jsoup.connect("https://en.wikipedia.org/wiki/Saab_Sonett").get();
+            searchMethod();
 
-        String title = doc.text();
-        String[] title2 = title.split("(?=[,.:-])|\\s+"); // Återkommer för att trimma splitten mer. Dvs väck med - osv intill ord.
-        String [] title3 = title2;
-        String searchword = scan.nextLine();
-        List<String> indexering;
+            Document doc = Jsoup.connect(website).get();
+            String title = doc.body().text().toUpperCase();
+            String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
 
-        indexering = Arrays.asList(title2);
-        for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-            String x = indexering.get(i); // Alla index skrivs ut
-            //System.out.println(x);      //Todo - tar första indexet och kolla om ordet stämmer , sen skriver ut allt rätt vice versa.
+            indexering = Arrays.asList(title2);
 
-            // Vill skapa en lista med alla "matches" från indexering kontra searchword
-            // Räkna antal "matches" för searchword från indexering
-            // Skriva ut antal "matches" i en egen funktion.
-        }
-
-        if (indexering.contains(searchword)) {
-            System.out.println("Funkar i steg 1");
             {
-                int count = 0;
-                for (int i = 0; i < title3.length; i++) {
-                    if (title3[i].equals(searchword)) {
-                        count++;
-                    }
+                int i = 0, indexeringSize = indexering.size();
+                while (i < indexeringSize) {
+                    i++;
                 }
-                System.out.println("Antal förekommande: " + count);
             }
+            if (indexering.contains(searchWord)) {
+                {
+                    int count = (int) IntStream.range(0, title2.length)
+                            .filter(i -> (title2[i].contains(searchWord))).count();
+
+                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
+                            "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
+
+                    //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword
+                    // - Cancel for exiting the program).
+                }
+            } else if (!indexering.contains(searchWord)) {
+                notFoundWordsArgument();
+                JOptionPane.showMessageDialog(null, "Try a new searchword",
+                        "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+                searchMethod(); // Vill inte tillbaka till starten.
+
+
+            }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, "Enter a correct website!",
+                    "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+
+            // catch ClassNotFoundException. //TODO ---->
         }
     }
 }
 
 
-       /* if (scan.next().equals(searchword)) {
-            ++iturn;
 
-            System.out.println("Rätt");
-        } else {
-            System.out.println("Fel");
-        }
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,45 +124,7 @@ public class Main {
 }
 
 
-        /*
-        Document doc = Jsoup.connect("https://www.wikipedia.org").get();
-        Elements titles = doc.getElementsByClass("other-project");
-        for (Element title : titles) {
-            System.out.println(title.text());
-        }
-    }
-}
-
-
-        /*
-        Document doc = Jsoup.connect("https://www.flashback.org/").get();
-        Elements body = doc.select("tbody.collapseobj_forumbit");
-        Elements select = body.select("tr");
-        for (int i=0, selectSize = select.size(); i< selectSize; i++){
-            Element e = select.get(i);
-            String title = e.select("td_forum").text().trim();
-            System.out.println(title);
-        }
-    }}
-
-
-
-
-    /*    String url = "https://www.sydsvenskan.se/";
-        Document page = Jsoup.connect(url).userAgent("").get();
-            String itemSelector = "item-card-container";
-        Elements authorElements = page.select(itemSelector);
-        ArrayList<String> itemTitles = new ArrayList<>();
-
-        for (Element e : authorElements) itemTitles.add(e.text());
-        for (String s : itemTitles) System.out.println(s);
-    }*/
-
-
-       /* String searchWord;
-        searchWord = JOptionPane.showInputDialog(null, "Please Enter Your SearchWord");
-        JOptionPane.showMessageDialog(null, "Your searchword is: " + searchWord);
-
+// TODO ---> FUNKAR PÅ WIKIPEDIA <---- TODO
 
         System.out.println(searchWord);
 
@@ -161,48 +158,5 @@ public class Main {
         searchWin.dispose();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-}
+        }*/
 
-
-       // File file = new File("testData/Ost.txt");
-
-       /* try{
-            Scanner input = new Scanner(file);
-            while(input.hasNext()){
-                String line = input.nextLine();
-                JOptionPane.showMessageDialog(null,line);
-                return;
-            }
-            input.close();
-        }
-        catch (FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,"File Not Found");
-        }
-
-
-    }
-
-    // Metod för att läsa igenom en hemsida / fil
-    // Metod för att räkna ut antal ord / eller most common ord (flest ord) exkl if / else / and / so / blablla.
-
-
- */
-
-
-
-/*
-Private static void startMetod() {
-        startMetod();
-
-        Scanner scan = new Scanner(new File(inputFile));
-        searchWord = JOptionPane.showInputDialog(null, "Please enter your searchword: ");
-        JOptionPane.showMessageDialog(null, "Your searchword is: " + searchWord);
-
-        String searchWord = scan.nextLine();
-
-        new crawler("testData/Ost.txt");
-    }
-
- */
