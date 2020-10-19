@@ -2,6 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.io.*;
+import java.lang.instrument.IllegalClassFormatException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -21,22 +22,21 @@ public class Main {
     }
 
     private static void notFoundWordsArgument() {
-        JOptionPane.showMessageDialog(null, "No such words was found on the website",
-                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Unfortunately, no such word was found on the website",
+                "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
     }
 
 
     public static void main(String[] args) throws IOException {
         JOP a = new JOP();
 
-        try {
 
+        try {
             searchMethod();
 
             Document doc = Jsoup.connect(website).get();
             String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
-
             indexering = Arrays.asList(title2);
 
             {
@@ -44,30 +44,36 @@ public class Main {
                 while (i < indexeringSize) {
                     i++;
                 }
+                //    for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++){}
             }
-            if (indexering.contains(searchWord)) {
+            if (searchWord.isBlank()) {
+                notFoundWordsArgument();
+            } else if (indexering.contains(searchWord)) {
                 {
                     int count = (int) IntStream.range(0, title2.length)
                             .filter(i -> (title2[i].contains(searchWord))).count();
 
                     JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
-                            "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
+                            "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
 
                 }
             } else if (!indexering.contains(searchWord)) {
                 notFoundWordsArgument();
-                JOptionPane.showMessageDialog(null, "Try a new searchword",
-                        "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
-                searchMethod(); // Vill inte tillbaka till starten.
 
-
+                //JOptionPane.showMessageDialog(null, "Try a new searchword", "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE); // TODO ----> Plusmeny deluxe <---- TODO
             }
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Enter a correct website!",
-                    "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
 
-            
-            // catch ClassNotFoundException. //TODO ---->
+        } catch (IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(null, "Enter a correct website!",
+                    "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
+
+       // } catch (IllegalClassFormatException exception) {
+         //   JOptionPane.showMessageDialog(null, "Enter a correct website!",
+           //         "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
+
+        } finally {
+            JOptionPane.showMessageDialog(null, "Thank you for using Website Scraper 3000",
+                    "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
         }
     }
 }
@@ -75,6 +81,8 @@ public class Main {
 
 
 
+
+// catch ClassNotFoundException. //TODO ---->
 
 
 
