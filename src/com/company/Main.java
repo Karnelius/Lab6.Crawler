@@ -2,7 +2,6 @@ package com.company;
 
 import javax.swing.*;
 import java.io.*;
-import java.lang.instrument.IllegalClassFormatException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -70,9 +69,6 @@ public class Main {
         }
     }
 }
-
-
-// catch ClassNotFoundException. //TODO ---->
 
 
 
