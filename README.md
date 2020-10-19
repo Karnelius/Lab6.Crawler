@@ -12,5 +12,7 @@ https://sjmulder.nl/en/textonly.html                            // Index for tex
 https://news.ycombinator.com/                                   // HackerNews - the best news
 http://lite.cnn.com/en                                          // CNN
 https://www.freesoft.org/CIE/Topics/index.htm                   // Technology
+https://www.svt.se/svttext/web/pages/100.html                   // Swedish "text-tv"
+
  
 

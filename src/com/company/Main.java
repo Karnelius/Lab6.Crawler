@@ -9,18 +9,27 @@ import java.util.stream.IntStream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import javax.swing.ImageIcon;
+import java.awt.event.*;
+import java.awt.*;
 
 
 public class Main {
+    public static String searchWord;
+
 
     public static void main(String[] args) throws IOException {
 
-        //Todo lägga till en bild etc i panelen.
         try {
-            String inputforWebsite = JOptionPane.showInputDialog(null, "Enter your website, copy the URL from your webrowser",
-                    "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE);
-            String searchword = JOptionPane.showInputDialog(null, "Please enter your searchword: ", "Plain Text Website Scraper 2000",
-                    JOptionPane.QUESTION_MESSAGE).toUpperCase();
+
+            String inputforWebsite = JOptionPane.showInputDialog(null,
+                    "Enter your website, copy the URL from your web-browser",
+                    "Plain Text Website Scraper 2000",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            searchWord = JOptionPane.showInputDialog(null, "Please enter your searchword: ",
+                    "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE).toUpperCase();
+            
 
             Document doc = Jsoup.connect(inputforWebsite).get();
             String title = doc.body().text().toUpperCase();
@@ -29,31 +38,46 @@ public class Main {
             indexering = Arrays.asList(title2);
 
             for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-
                 //Todo Kolla upp empty for loop body...
             }
-
-            if (indexering.contains(searchword)) {
+            if (indexering.contains(searchWord)) {
                 {
                     int count = (int) IntStream.range(0, title2.length)
-                            .filter(i -> (title2[i].contains(searchword))).count();
+                            .filter(i -> (title2[i].contains(searchWord))).count();
 
-                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchword + "'" + " was found: " + count + " time/s on the website.",
+                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
                             "Plain Text Website Scraper 2000", JOptionPane.INFORMATION_MESSAGE);
 
                     //Todo - loopa så man får trycka JA eller Nej för att fortsätta ( Typ Press OK to continue with a new searchword
                     // - Cancel for exiting the program).
                 }
-            } else if (!indexering.contains(searchword)) {
-                JOptionPane.showMessageDialog(null, "No such words was found on the webiste", "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+            } else if (!indexering.contains(searchWord)) {
+                notFoundArgument();
             }
-
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Skriv in en rätt hemsida!", "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Enter a correct website!",
+                    "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+
             // catch ClassNotFoundException. //TODO ---->
         }
     }
+
+    private static void notFoundArgument() {
+        JOptionPane.showMessageDialog(null, "No such words was found on the website",
+                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
 
         /*
         Document doc = Jsoup.connect("https://www.imdb.com/chart/top/?ref_=nv_mv_250").get();
@@ -73,16 +97,8 @@ public class Main {
     }
 }
 
-   String x = indexering.get(i); // Alla index skrivs ut
-                System.out.println(x);
 
-        Document doc = Jsoup.connect("https://www.wikipedia.org").get();
-        Elements titles = doc.getElementsByClass("other-project");
-        for (Element title : titles) {
-            System.out.println(title.text());
-        }
-    }
-}
+// TODO ---> FUNKAR PÅ WIKIPEDIA <---- TODO
 
         System.out.println(searchWord);
 
@@ -116,6 +132,5 @@ public class Main {
         searchWin.dispose();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-}*/
+        }*/
+
