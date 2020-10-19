@@ -45,7 +45,7 @@ public class Main {
             System.out.println("Funkar i steg 1");
             {
                 int count = 0;
-                for (int i = 0; i < title3.length - 1; i++) {           
+                for (int i = 0; i < title3.length; i++) {
                     if (title3[i].equals(searchword)) {
                         count++;
                     }
