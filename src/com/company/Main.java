@@ -26,8 +26,7 @@ public class Main {
                 "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
     }
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         JOP a = new JOP();
 
 
@@ -59,17 +58,11 @@ public class Main {
                 }
             } else if (!indexering.contains(searchWord)) {
                 notFoundWordsArgument();
-
-                //JOptionPane.showMessageDialog(null, "Try a new searchword", "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE); // TODO ----> Plusmeny deluxe <---- TODO
             }
 
-        } catch (IllegalArgumentException exception) {
+        } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Enter a correct website!",
                     "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
-
-       // } catch (IllegalClassFormatException exception) {
-         //   JOptionPane.showMessageDialog(null, "Enter a correct website!",
-           //         "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
 
         } finally {
             JOptionPane.showMessageDialog(null, "Thank you for using Website Scraper 3000",
@@ -77,9 +70,6 @@ public class Main {
         }
     }
 }
-
-
-
 
 
 // catch ClassNotFoundException. //TODO ---->

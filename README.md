@@ -5,7 +5,7 @@ Contributors Hamid N & David K.
 
 Website parser, these following websites and sites on the website work with our prototype:
 
-https://sjmulder.nl/en/textonly.html                            // Index for text-base websites that should work.
+https://sjmulder.nl/en/textonly.html                            // Indexsite for all the text-base websites that should work.
                                                                     The following bellow are working.
                                                                     
 
