@@ -2,43 +2,48 @@ package com.company;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import javax.swing.ImageIcon;
-import java.awt.event.*;
-import java.awt.*;
-
 
 public class Main {
+
     public static String searchWord;
+    public static String website;
+    public static List<String> indexering;
+
+    private static void searchMethod() {
+        website = JOP.inputWebsite;
+        searchWord = JOP.inputSearch;
+    }
+
+    private static void notFoundWordsArgument() {
+        JOptionPane.showMessageDialog(null, "No such words was found on the website",
+                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+    }
 
 
     public static void main(String[] args) throws IOException {
+        JOP a = new JOP();
 
         try {
 
-            String inputforWebsite = JOptionPane.showInputDialog(null,
-                    "Enter your website, copy the URL from your web-browser",
-                    "Plain Text Website Scraper 2000",
-                    JOptionPane.QUESTION_MESSAGE);
+            searchMethod();
 
-            searchWord = JOptionPane.showInputDialog(null, "Please enter your searchword: ",
-                    "Plain Text Website Scraper 2000", JOptionPane.QUESTION_MESSAGE).toUpperCase();
-            
-
-            Document doc = Jsoup.connect(inputforWebsite).get();
+            Document doc = Jsoup.connect(website).get();
             String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
-            List<String> indexering;
+
             indexering = Arrays.asList(title2);
 
-            for (int i = 0, indexeringSize = indexering.size(); i < indexeringSize; i++) {
-                //Todo Kolla upp empty for loop body...
+            {
+                int i = 0, indexeringSize = indexering.size();
+                while (i < indexeringSize) {
+                    i++;
+                }
             }
             if (indexering.contains(searchWord)) {
                 {
@@ -52,7 +57,12 @@ public class Main {
                     // - Cancel for exiting the program).
                 }
             } else if (!indexering.contains(searchWord)) {
-                notFoundArgument();
+                notFoundWordsArgument();
+                JOptionPane.showMessageDialog(null, "Try a new searchword",
+                        "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
+                searchMethod(); // Vill inte tillbaka till starten.
+
+
             }
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Enter a correct website!",
@@ -61,13 +71,29 @@ public class Main {
             // catch ClassNotFoundException. //TODO ---->
         }
     }
-
-    private static void notFoundArgument() {
-        JOptionPane.showMessageDialog(null, "No such words was found on the website",
-                "Plain Text Website Scraper 2000", JOptionPane.ERROR_MESSAGE);
-    }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
