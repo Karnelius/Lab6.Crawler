@@ -11,11 +11,11 @@ import org.jsoup.nodes.Document;
 public class Main {
 
     public String searchWord;
-    public String website;
+    public String searchWebsite;
     public List<String> indexering;
 
     private void searchMethod() {
-        website = JOP.inputWebsite;
+        searchWebsite = JOP.inputWebsite;
         searchWord = JOP.inputSearch;
     }
 
@@ -32,7 +32,7 @@ public class Main {
         try {
             x.searchMethod();
 
-            Document doc = Jsoup.connect(x.website).get();
+            Document doc = Jsoup.connect(x.searchWebsite).get();
             String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
             x.indexering = Arrays.asList(title2);
