@@ -4,56 +4,58 @@ import javax.swing.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class Main {
 
-    public static String searchWord;
-    public static String website;
-    public static List<String> indexering;
+    public String searchWord;
+    public String website;
+    public List<String> indexering;
 
-    private static void searchMethod() {
+    private void searchMethod() {
         website = JOP.inputWebsite;
         searchWord = JOP.inputSearch;
     }
 
-    private static void notFoundWordsArgument() {
+    private void notFoundWordsArgument() {
         JOptionPane.showMessageDialog(null, "Unfortunately, no such word was found on the website",
                 "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void main(String[] args) throws Exception {
+        Main x = new Main();
         JOP a = new JOP();
 
 
         try {
-            searchMethod();
+            x.searchMethod();
 
-            Document doc = Jsoup.connect(website).get();
+            Document doc = Jsoup.connect(x.website).get();
             String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
-            indexering = Arrays.asList(title2);
+            x.indexering = Arrays.asList(title2);
 
             {
-                int i = 0, indexeringSize = indexering.size();
+                int i = 0, indexeringSize = x.indexering.size();
                 while (i < indexeringSize) {
                     i++;
                 }
             }
-            if (searchWord.isBlank()) {
-                notFoundWordsArgument();
-            } else if (indexering.contains(searchWord)) {
+            if (x.searchWord.isBlank()) {
+                x.notFoundWordsArgument();
+            } else if (x.indexering.contains(x.searchWord)) {
                 {
                     int count = (int) IntStream.range(0, title2.length)
-                            .filter(i -> (title2[i].contains(searchWord))).count();
+                            .filter(i -> (title2[i].contains(x.searchWord))).count();
 
-                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + searchWord + "'" + " was found: " + count + " time/s on the website.",
+                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + x.searchWord + "'" + " was found: " + count + " time/s on the website.",
                             "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
 
                 }
-            } else if (!indexering.contains(searchWord)) {
-                notFoundWordsArgument();
+            } else if (!x.indexering.contains(x.searchWord)) {
+                x.notFoundWordsArgument();
             }
 
         } catch (IllegalArgumentException e) {
