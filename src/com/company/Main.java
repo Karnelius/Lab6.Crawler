@@ -12,7 +12,7 @@ public class Main {
 
     public String searchWord;
     public String searchWebsite;
-    public List<String> indexering;
+    public List<String> indexing;
 
     private void searchMethod() {
         searchWebsite = JOP.inputWebsite;
@@ -35,26 +35,26 @@ public class Main {
             Document doc = Jsoup.connect(x.searchWebsite).get();
             String title = doc.body().text().toUpperCase();
             String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
-            x.indexering = Arrays.asList(title2);
-
+            x.indexing = Arrays.asList(title2);
             {
-                int i = 0, indexeringSize = x.indexering.size();
-                while (i < indexeringSize) {
+
+                int i = 0, indexingSize = x.indexing.size();
+                while (i < indexingSize) {
                     i++;
                 }
             }
             if (x.searchWord.isBlank()) {
                 x.notFoundWordsArgument();
-            } else if (x.indexering.contains(x.searchWord)) {
+            } else if (x.indexing.contains(x.searchWord)) {
                 {
                     int count = (int) IntStream.range(0, title2.length)
                             .filter(i -> (title2[i].contains(x.searchWord))).count();
 
-                    JOptionPane.showMessageDialog(null, "Your searchword " + "'" + x.searchWord + "'" + " was found: " + count + " time/s on the website.",
+                    JOptionPane.showMessageDialog(null, "Your search word " + "'" + x.searchWord + "'" + " was found: " + count + " time/s on the website.",
                             "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
 
                 }
-            } else if (!x.indexering.contains(x.searchWord)) {
+            } else if (!x.indexing.contains(x.searchWord)) {
                 x.notFoundWordsArgument();
             }
 
@@ -68,3 +68,4 @@ public class Main {
         }
     }
 }
+
