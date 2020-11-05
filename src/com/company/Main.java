@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -50,8 +51,6 @@ public class Main {
         JOP a = new JOP();
 
 
-
-
         try {
             x.searchMethod();
 
@@ -89,6 +88,12 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Thank you for using Website Scraper 3000",
                     "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
         }
+    }
+    public void printToTerminal(String input) {
+        System.out.println(input);
+    }
+    public void canSometimesGoWrong() throws IOException {
+        throw (new IOException());
     }
 }
 
