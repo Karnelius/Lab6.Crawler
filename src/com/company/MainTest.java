@@ -27,7 +27,6 @@ public class MainTest {
         JOP jop = new JOP();
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        JOP.inputWebsite;
         assertEquals(null, outContent.toString());
     }
 

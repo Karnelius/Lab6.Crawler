@@ -12,27 +12,31 @@ public class Main {
 
     public String searchWord;
     public String searchWebsite;
+    /**
+     * indexing
+     * Skapar en index av alla ord på den angivna hemsidan.
+     * En lista av indexerade ord.
+     */
     public List<String> indexing;
 
+
     /**
-     * Indexering -
-     * Skapar en index av alla ord på den angivna hemsidan.
-     * @return En lista av indexerade ord.
-     * @author David & Hamid
+     * searchMethod
+     *  kopplar på en klass som tar in input-argument i form av text för hemsida-input & sökord-på-hemsida.
+     * Variabeln gör det möjligt att ange input som sedan körs på hemsidan.
+     *  @author David & Hamid
      */
-
-
-
      void searchMethod() {
         searchWebsite = JOP.inputWebsite;
         searchWord = JOP.inputSearch;
     }
+
     /**
-     * Searchmethod kopplar på en klass som tar in input-argument i form av text för hemsida-input & sökord-på-hemsida.
-     * Variabeln gör det möjligt att ange input som sedan körs på hemsidan.
+     * notFoundWordsArgument
+     * skapar en ny JOptionPane för användaren.
+     * @Return Variabeln hänvisar resultatet till användaren att sådant sökord dessvärre inte finns på den angivna hemsidan.
      *  @author David & Hamid
      */
-
 
 
     void notFoundWordsArgument() {
@@ -40,15 +44,12 @@ public class Main {
                 "Plain Text Website Scraper 3000", JOptionPane.ERROR_MESSAGE);
     }
 
-    /**
-     * notFoundWordsArgument - skapar en ny JOptionPane för användaren.
-     * Variabeln hänvisar resultatet till användaren att sådant sökord dessvärre inte finns på den angivna hemsidan.
-     *  @author David & Hamid
-     */
 
     public static void main(String[] args) throws Exception {
         Main x = new Main();
         JOP a = new JOP();
+
+
 
 
         try {
