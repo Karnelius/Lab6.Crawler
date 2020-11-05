@@ -1,7 +1,6 @@
 package com.company;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -23,11 +22,12 @@ public class Main {
 
     /**
      * searchMethod
-     *  kopplar på en klass som tar in input-argument i form av text för hemsida-input & sökord-på-hemsida.
+     * kopplar på en klass som tar in input-argument i form av text för hemsida-input & sökord-på-hemsida.
      * Variabeln gör det möjligt att ange input som sedan körs på hemsidan.
-     *  @author David & Hamid
+     *
+     * @author David & Hamid
      */
-     void searchMethod() {
+    void searchMethod() {
         searchWebsite = JOP.inputWebsite;
         searchWord = JOP.inputSearch;
     }
@@ -35,8 +35,9 @@ public class Main {
     /**
      * notFoundWordsArgument
      * skapar en ny JOptionPane för användaren.
+     *
      * @Return Variabeln hänvisar resultatet till användaren att sådant sökord dessvärre inte finns på den angivna hemsidan.
-     *  @author David & Hamid
+     * @author David & Hamid
      */
 
 
@@ -48,29 +49,25 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Main x = new Main();
-        JOP a = new JOP();
 
 
         try {
             x.searchMethod();
-
             Document doc = Jsoup.connect(x.searchWebsite).get();
-            String title = doc.body().text().toUpperCase();
-            String[] title2 = title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
+            String[] title2 = x.indexingMethod(doc.body().text().toUpperCase());
             x.indexing = Arrays.asList(title2);
-            {
 
-                int i = 0, indexingSize = x.indexing.size();
-                while (i < indexingSize) {
-                    i++;
-                }
+
+            int i = 0, indexingSize = x.indexing.size();
+            while (i < indexingSize) {
+                i++;
             }
+
             if (x.searchWord.isBlank()) {
                 x.notFoundWordsArgument();
             } else if (x.indexing.contains(x.searchWord)) {
                 {
-                    int count = (int) IntStream.range(0, title2.length)
-                            .filter(i -> (title2[i].contains(x.searchWord))).count();
+                    int count = x.methodCount(title2);
 
                     JOptionPane.showMessageDialog(null, "Your search word " + "'" + x.searchWord + "'" + " was found: " + count + " time/s on the website.",
                             "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
@@ -89,11 +86,16 @@ public class Main {
                     "Plain Text Website Scraper 3000", JOptionPane.PLAIN_MESSAGE);
         }
     }
-    public void printToTerminal(String input) {
-        System.out.println(input);
-    }
-    public void canSometimesGoWrong() throws IOException {
-        throw (new IOException());
-    }
-}
 
+
+    int methodCount(String[] title2) {
+        return (int) IntStream.range(0, title2.length)
+                .filter(j -> (title2[j].contains(searchWord))).count();
+    }
+
+
+    public String[] indexingMethod(String title) {
+        return title.split("([-,.:;)/(?!@=\",\"\"])|(?=[-,+.^:_])|\\s+");
+    }
+
+}
